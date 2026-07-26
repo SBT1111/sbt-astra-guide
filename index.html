@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SBT ASTRA：Echoes of Astra 繁體中文非官方玩法與規則圖解，包含互動戰場、回合流程、VP 計分器與組牌速查。">
+  <meta name="theme-color" content="#07131d">
+  <title>SBT ASTRA｜Echoes of Astra 繁體中文戰術規則</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://assets.echoesofastra.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="SBT ASTRA 首頁">
+      <span class="brand-glyph" aria-hidden="true">SBT</span>
+      <span class="brand-copy">
+        <strong>ASTRA</strong>
+        <small>戰術規則檔案</small>
+      </span>
+    </a>
+
+    <button class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="開啟導覽選單" title="開啟選單" data-menu-toggle>
+      <i data-lucide="menu" aria-hidden="true"></i>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="主要導覽" data-nav>
+      <a href="#battlefield">戰場演練</a>
+      <a href="#turns">回合流程</a>
+      <a href="#cards">卡牌類型</a>
+      <a href="#deck">組牌規則</a>
+      <button class="nav-quick" type="button" data-open-quick>
+        <i data-lucide="scan-line" aria-hidden="true"></i>
+        規則速查
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-backdrop" role="img" aria-label="Echoes of Astra 的科幻奇幻戰場角色插畫"></div>
+      <div class="hero-content page-shell">
+        <p class="hero-kicker"><span>SBT / FIELD NOTE 01</span> 非官方繁體中文指南</p>
+        <h1 id="hero-title">
+          <span>Echoes of Astra</span>
+          <small>三座戰區，一條通往勝利的戰線。</small>
+        </h1>
+        <p class="hero-lead">部署單位、安排攻擊順序，在對手露出破綻時奪下戰區。你不是削減生命值，而是用影響力先累積到 <strong>20 VP</strong>。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#battlefield">
+            <i data-lucide="swords" aria-hidden="true"></i>
+            開始戰場演練
+          </a>
+          <button class="button button-ghost" type="button" data-open-quick>
+            <i data-lucide="list-checks" aria-hidden="true"></i>
+            開啟一頁速查
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-facts" aria-label="遊戲核心資料">
+        <div><strong>1 vs 1</strong><span>本指南規則</span></div>
+        <div><strong>3</strong><span>共享戰區</span></div>
+        <div><strong>20 VP</strong><span>立即獲勝</span></div>
+      </div>
+    </section>
+
+    <section class="mission-band" aria-labelledby="mission-title">
+      <div class="page-shell mission-layout">
+        <div class="section-index" aria-hidden="true">00</div>
+        <div>
+          <p class="eyebrow">你的任務</p>
+          <h2 id="mission-title">佔領、得分、守住下一拍。</h2>
+        </div>
+        <p>每回合結束時，你控制的每個戰區會依該單位的<strong>影響力</strong>計分。空區也能進攻，但一旦踏入戰區就立即開始戰鬥，所有行動順序都可能改變結果。</p>
+      </div>
+    </section>
+
+    <section class="section battlefield-section" id="battlefield" aria-labelledby="battlefield-title">
+      <div class="page-shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">01 / 互動教學</p>
+            <h2 id="battlefield-title">先看懂一場進攻</h2>
+          </div>
+          <p>按「下一步」走完一次戰鬥。這裡示範 4 ATK / 4 HP 的進攻單位，挑戰 2 ATK / 3 HP 的守軍。</p>
+        </div>
+
+        <div class="training-layout reveal">
+          <div class="field-console" aria-label="互動戰場示意圖">
+            <div class="field-topline">
+              <span><i data-lucide="radio" aria-hidden="true"></i> BATTLEFIELD / LIVE</span>
+              <span class="field-turn">你的主階段</span>
+            </div>
+
+            <div class="staging-zone staging-enemy">
+              <span class="area-label">對手預備區</span>
+              <div class="grave-marker" id="enemy-grave" aria-label="對手墓地">
+                <i data-lucide="skull" aria-hidden="true"></i>
+                <span>墓地</span>
+              </div>
+            </div>
+
+            <div class="combat-zones" aria-label="三個共享戰區">
+              <article class="combat-zone" data-zone="alpha">
+                <span class="zone-code">CZ–01</span>
+                <strong>曙光港</strong>
+                <span class="zone-status">未佔領</span>
+              </article>
+
+              <article class="combat-zone active-zone" data-zone="beta">
+                <span class="zone-code">CZ–02</span>
+                <strong>天穹裂口</strong>
+                <div class="duel-slot" id="duel-slot"></div>
+                <span class="zone-status" id="zone-status">由對手控制</span>
+              </article>
+
+              <article class="combat-zone" data-zone="gamma">
+                <span class="zone-code">CZ–03</span>
+                <strong>古代核心</strong>
+                <span class="zone-status">未佔領</span>
+              </article>
+            </div>
+
+            <div class="staging-zone staging-player" id="player-staging">
+              <span class="area-label">我方預備區</span>
+              <article class="unit-token unit-player" id="attacker-unit" aria-label="我方進攻單位，攻擊 4，生命 4，影響力 2">
+                <span class="unit-state">READY</span>
+                <strong>先鋒機甲</strong>
+                <div class="unit-stats"><span>4 ATK</span><span>4 HP</span><span>2 INF</span></div>
+              </article>
+            </div>
+
+            <article class="unit-token unit-enemy" id="defender-unit" aria-label="敵方防守單位，攻擊 2，生命 3，影響力 1">
+              <span class="unit-state">READY</span>
+              <strong>暗影守衛</strong>
+              <div class="unit-stats"><span>2 ATK</span><span>3 HP</span><span>1 INF</span></div>
+            </article>
+          </div>
+
+          <aside class="lesson-panel" aria-live="polite">
+            <div class="lesson-progress">
+              <span id="lesson-step-label">步驟 1 / 6</span>
+              <div class="progress-track" aria-hidden="true"><span id="lesson-progress-bar"></span></div>
+            </div>
+            <p class="lesson-phase" id="lesson-phase">準備進攻</p>
+            <h3 id="lesson-title">選擇一個有效戰區</h3>
+            <p id="lesson-description">只有預備區內的就緒單位可以執行一般進攻。你不能攻擊自己已控制的戰區。</p>
+            <ul class="lesson-notes" id="lesson-notes">
+              <li>單位必須處於就緒狀態</li>
+              <li>進攻後立即進入戰鬥階段</li>
+            </ul>
+
+            <div class="lesson-controls">
+              <button class="icon-button" type="button" aria-label="上一步" title="上一步" data-demo-prev>
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+              </button>
+              <button class="icon-button" type="button" aria-label="重設演練" title="重設演練" data-demo-reset>
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+              </button>
+              <button class="button button-dark lesson-next" type="button" data-demo-next>
+                下一步
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </aside>
+        </div>
+
+        <div class="score-lab reveal" aria-labelledby="score-title">
+          <div class="score-copy">
+            <p class="eyebrow">VP 計分實驗室</p>
+            <h3 id="score-title">先到 20，不是把生命打到 0。</h3>
+            <p>在自己結束階段的計分步驟，將所有駐守戰區之友方單位的影響力加到 VP。試著用下方計分器走到 20。</p>
+            <button class="text-link" type="button" data-score-reset>
+              <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              重設雙方分數
+            </button>
+          </div>
+
+          <div class="scoreboard" aria-label="勝利點計分器">
+            <div class="score-player" data-player="you">
+              <div class="score-player-head"><span>YOU / 我方</span><strong data-score-value>0</strong></div>
+              <div class="score-progress" role="progressbar" aria-label="我方勝利點" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0"><span data-score-bar></span></div>
+              <div class="score-controls">
+                <button class="icon-button score-minus" type="button" aria-label="我方減少 1 VP" title="減少 1 VP" data-score-change="-1"><i data-lucide="minus" aria-hidden="true"></i></button>
+                <button class="score-add" type="button" data-score-change="1">+1 VP</button>
+                <button class="score-add" type="button" data-score-change="2">+2 VP</button>
+                <button class="score-add" type="button" data-score-change="3">+3 VP</button>
+              </div>
+            </div>
+
+            <div class="score-divider"><span>20</span><small>WIN</small></div>
+
+            <div class="score-player opponent-score" data-player="opponent">
+              <div class="score-player-head"><span>RIVAL / 對手</span><strong data-score-value>0</strong></div>
+              <div class="score-progress" role="progressbar" aria-label="對手勝利點" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0"><span data-score-bar></span></div>
+              <div class="score-controls">
+                <button class="icon-button score-minus" type="button" aria-label="對手減少 1 VP" title="減少 1 VP" data-score-change="-1"><i data-lucide="minus" aria-hidden="true"></i></button>
+                <button class="score-add" type="button" data-score-change="1">+1 VP</button>
+                <button class="score-add" type="button" data-score-change="2">+2 VP</button>
+                <button class="score-add" type="button" data-score-change="3">+3 VP</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section turn-section" id="turns" aria-labelledby="turns-title">
+      <div class="page-shell">
+        <div class="section-heading section-heading-light reveal">
+          <div>
+            <p class="eyebrow">02 / 回合控制台</p>
+            <h2 id="turns-title">一回合，四個節點</h2>
+          </div>
+          <p>主階段沒有固定行動順序；每次進攻都會插入完整戰鬥流程，結算完才回到主階段。</p>
+        </div>
+
+        <div class="phase-console reveal">
+          <div class="phase-tabs" role="tablist" aria-label="回合階段">
+            <button id="phase-tab-ready" type="button" role="tab" aria-selected="true" aria-controls="phase-ready" data-phase-tab="ready"><span>01</span>重置・抽牌</button>
+            <button id="phase-tab-main" type="button" role="tab" aria-selected="false" aria-controls="phase-main" tabindex="-1" data-phase-tab="main"><span>02</span>主階段</button>
+            <button id="phase-tab-combat" type="button" role="tab" aria-selected="false" aria-controls="phase-combat" tabindex="-1" data-phase-tab="combat"><span>03</span>戰鬥</button>
+            <button id="phase-tab-end" type="button" role="tab" aria-selected="false" aria-controls="phase-end" tabindex="-1" data-phase-tab="end"><span>04</span>結束</button>
+          </div>
+
+          <div class="phase-panels">
+            <article class="phase-panel" id="phase-ready" role="tabpanel" aria-labelledby="phase-tab-ready" data-phase-panel="ready">
+              <div class="phase-number">01</div>
+              <div class="phase-body">
+                <p class="phase-kicker">READY / START / DRAW</p>
+                <h3>把整個陣線重新喚醒</h3>
+                <ol>
+                  <li><strong>重置：</strong>將自己場上所有橫置卡轉為就緒，觸發「On Ready」。</li>
+                  <li><strong>回合開始：</strong>結算寫有「回合開始」的持續或被動效果。</li>
+                  <li><strong>抽牌：</strong>抽 1 張；先手玩家的第一回合跳過此步。</li>
+                </ol>
+              </div>
+              <div class="phase-callout"><i data-lucide="sunrise" aria-hidden="true"></i><span>就緒單位才能執行一般進攻、撤退或需要橫置的能力。</span></div>
+            </article>
+
+            <article class="phase-panel" id="phase-main" role="tabpanel" aria-labelledby="phase-tab-main" data-phase-panel="main" hidden>
+              <div class="phase-number">02</div>
+              <div class="phase-body">
+                <p class="phase-kicker">MAIN PHASE</p>
+                <h3>依戰況自由安排每一手</h3>
+                <ul class="action-grid">
+                  <li><i data-lucide="layers-3" aria-hidden="true"></i><span><strong>擴充供應</strong>每回合一次，蓋牌後可補抽 1 張。</span></li>
+                  <li><i data-lucide="badge-plus" aria-hidden="true"></i><span><strong>打出卡牌</strong>橫置等量供應支付費用。</span></li>
+                  <li><i data-lucide="sparkles" aria-hidden="true"></i><span><strong>啟動能力</strong>支付冒號前列出的所有代價。</span></li>
+                  <li><i data-lucide="move-right" aria-hidden="true"></i><span><strong>進攻／撤退</strong>進入戰區會立刻開戰。</span></li>
+                </ul>
+              </div>
+              <div class="phase-callout"><i data-lucide="shuffle" aria-hidden="true"></i><span>這些行動可用任何順序進行，只要卡牌、費用與場面都合法。</span></div>
+            </article>
+
+            <article class="phase-panel" id="phase-combat" role="tabpanel" aria-labelledby="phase-tab-combat" data-phase-panel="combat" hidden>
+              <div class="phase-number">03</div>
+              <div class="phase-body">
+                <p class="phase-kicker">COMBAT INSERT</p>
+                <h3>每次進攻都完整走過五步</h3>
+                <ol class="combat-order">
+                  <li><span>1</span><strong>能力</strong>計算加成；On Attack 與 On Defend 進堆疊。</li>
+                  <li><span>2</span><strong>反制</strong>防守方優先開啟回應，後進先出。</li>
+                  <li><span>3</span><strong>確認</strong>若攻守任一方失效，跳過傷害。</li>
+                  <li><span>4</span><strong>傷害</strong>雙方同時造成 ATK；僅就緒守軍可還擊。</li>
+                  <li><span>5</span><strong>結算</strong>進攻者獨存便佔領；雙方存活則退回原處。</li>
+                </ol>
+              </div>
+              <div class="phase-callout"><i data-lucide="undo-2" aria-hidden="true"></i><span>戰鬥結束後回到主階段，你可以繼續行動或再發起進攻。</span></div>
+            </article>
+
+            <article class="phase-panel" id="phase-end" role="tabpanel" aria-labelledby="phase-tab-end" data-phase-panel="end" hidden>
+              <div class="phase-number">04</div>
+              <div class="phase-body">
+                <p class="phase-kicker">END PHASE</p>
+                <h3>先計分，再清理戰場</h3>
+                <ol>
+                  <li><strong>計分：</strong>累加各戰區友方單位的影響力，之後觸發 On Score。</li>
+                  <li><strong>結束效果：</strong>結算 Turn End，再移除所有單位的暫時傷害。</li>
+                  <li><strong>手牌上限：</strong>超過 10 張則棄到 10 張。</li>
+                  <li><strong>勝負確認：</strong>若你的 VP 至少 20，立即獲勝。</li>
+                </ol>
+              </div>
+              <div class="phase-callout"><i data-lucide="trophy" aria-hidden="true"></i><span>計分不是選擇性動作；0 影響力仍算完成計分並可觸發 On Score。</span></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="supply-flow reveal" aria-labelledby="supply-title">
+          <div class="supply-intro">
+            <p class="eyebrow">SUPPLY / 供應</p>
+            <h3 id="supply-title">你手上任何一張牌，都能成為資源。</h3>
+            <p>每個主階段可擴充一次供應。放下去的供應立即就緒，而且以此方式擴充時可以抽一張替代牌。</p>
+          </div>
+          <ol class="supply-steps">
+            <li><span class="mini-card face-up">手牌</span><p><strong>選 1 張</strong>不必展示內容</p></li>
+            <li><i data-lucide="arrow-right" aria-hidden="true"></i></li>
+            <li><span class="mini-card face-down">SBT</span><p><strong>蓋放供應區</strong>立即可使用</p></li>
+            <li><i data-lucide="arrow-right" aria-hidden="true"></i></li>
+            <li><span class="draw-icon"><i data-lucide="copy-plus" aria-hidden="true"></i></span><p><strong>可補抽 1 張</strong>維持手牌選項</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section card-section" id="cards" aria-labelledby="cards-title">
+      <div class="page-shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">03 / 卡牌識別</p>
+            <h2 id="cards-title">四種牌，四種落點</h2>
+          </div>
+          <p>辨認牌種就能知道它會留在哪裡。下列為官方卡圖範例；點擊卡圖可放大閱讀。</p>
+        </div>
+
+        <div class="card-type-grid">
+          <article class="type-card reveal">
+            <button class="card-art-button" type="button" data-card-zoom data-card-name="Celeste, Concord Paladin｜單位牌">
+              <img src="https://assets.echoesofastra.com/cards/IMP041_Celeste%2CConcordPaladin_web.png" alt="Echoes of Astra 單位牌 Celeste, Concord Paladin" loading="lazy">
+              <span><i data-lucide="scan-search" aria-hidden="true"></i>放大卡圖</span>
+            </button>
+            <div class="type-card-copy">
+              <p class="type-code">UNIT / 單位</p>
+              <h3>佔領與戰鬥的主體</h3>
+              <p>打出時通常橫置進入預備區。生命降至 0 就被摧毀；就緒時可進攻、撤退或啟動單位行動。</p>
+              <span class="placement"><i data-lucide="map-pin" aria-hidden="true"></i>預備區 → 戰區</span>
+            </div>
+          </article>
+
+          <article class="type-card reveal">
+            <button class="card-art-button" type="button" data-card-zoom data-card-name="Artillery Barrage｜戰術牌">
+              <img src="https://assets.echoesofastra.com/cards/IMP052_ArtilleryBarrage_web.png" alt="Echoes of Astra 戰術牌 Artillery Barrage" loading="lazy">
+              <span><i data-lucide="scan-search" aria-hidden="true"></i>放大卡圖</span>
+            </button>
+            <div class="type-card-copy">
+              <p class="type-code">TACTIC / 戰術</p>
+              <h3>一次性改變局面</h3>
+              <p>效果結算後送入墓地。帶有 Counter 的戰術可在戰鬥反制步驟回應，也可於自己的主階段正常打出。</p>
+              <span class="placement"><i data-lucide="zap" aria-hidden="true"></i>立即結算 → 墓地</span>
+            </div>
+          </article>
+
+          <article class="type-card reveal">
+            <button class="card-art-button" type="button" data-card-zoom data-card-name="Hallowed Sanctum｜領土牌">
+              <img src="https://assets.echoesofastra.com/cards/IMP062_HallowedSanctum_web.png" alt="Echoes of Astra 領土牌 Hallowed Sanctum" loading="lazy">
+              <span><i data-lucide="scan-search" aria-hidden="true"></i>放大卡圖</span>
+            </button>
+            <div class="type-card-copy">
+              <p class="type-code">TERRITORY / 領土</p>
+              <h3>直接改造一座戰區</h3>
+              <p>可付費正面打出，也可免費蓋放，之後於主階段或作為反制支付費用翻開。每位玩家每區限一張友方領土。</p>
+              <span class="placement"><i data-lucide="flag" aria-hidden="true"></i>直接放入戰區</span>
+            </div>
+          </article>
+
+          <article class="type-card reveal">
+            <button class="card-art-button" type="button" data-card-zoom data-card-name="Pulseguard Armor｜物品牌">
+              <img src="https://assets.echoesofastra.com/cards/IMP059_PulseguardArmor_web.png" alt="Echoes of Astra 物品牌 Pulseguard Armor" loading="lazy">
+              <span><i data-lucide="scan-search" aria-hidden="true"></i>放大卡圖</span>
+            </button>
+            <div class="type-card-copy">
+              <p class="type-code">ITEM / 物品</p>
+              <h3>把單位調校成關鍵棋子</h3>
+              <p>裝備到自己預備區內的單位，效果立即套用。不能主動卸下；單位離開戰場時，所附物品會被摧毀。</p>
+              <span class="placement"><i data-lucide="shield-plus" aria-hidden="true"></i>附加於預備區單位</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="renowned-note reveal">
+          <span class="renowned-symbol" aria-hidden="true"><i data-lucide="crown"></i></span>
+          <div><p class="eyebrow">RENOWNED / 聞名</p><h3>同名角色，只能有一位在你控制之下。</h3></div>
+          <p>若同名聞名單位或領土已由你控制，便不能再正常打出；原卡離場後，才可打出另一張。</p>
+        </div>
+
+        <div class="token-note reveal">
+          <span class="token-symbol" aria-hidden="true"><i data-lucide="circle-dashed"></i></span>
+          <div><p class="eyebrow">TOKEN / 衍生物</p><h3>由效果建立，只在戰場上存在。</h3></div>
+          <ul>
+            <li>供應費用永遠是 0，建立時一律為橫置狀態。</li>
+            <li>離開預備區或戰區後便從遊戲消失，可放回衍生物堆。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section deck-section" id="deck" aria-labelledby="deck-title">
+      <div class="page-shell deck-layout">
+        <div class="deck-copy reveal">
+          <p class="eyebrow">04 / DECK PROTOCOL</p>
+          <h2 id="deck-title">組牌只有三條硬規則</h2>
+          <p>中立牌不佔陣營限制，因此雙陣營牌組仍可自由加入 Neutral。牌組沒有上限，但至少要符合以下門檻。</p>
+          <div class="deck-rules">
+            <div><strong>50<span>+</span></strong><p>主牌組<br>至少 50 張</p></div>
+            <div><strong>3<span>×</span></strong><p>每個卡名<br>最多 3 張</p></div>
+            <div><strong>2<span>色</span></strong><p>最多兩種陣營<br>另加中立</p></div>
+          </div>
+        </div>
+
+        <div class="affinity-panel reveal" aria-labelledby="affinity-title">
+          <div class="affinity-head"><span id="affinity-title">五大陣營</span><small>選擇至多兩種</small></div>
+          <div class="affinity-list">
+            <div class="affinity lux"><img src="https://assets.echoesofastra.com/icons/icon_affinity_lux.png" alt="Lux 圖示" loading="lazy"><span><strong>Lux</strong>秩序・光</span></div>
+            <div class="affinity nox"><img src="https://assets.echoesofastra.com/icons/icon_affinity_nox.png" alt="Nox 圖示" loading="lazy"><span><strong>Nox</strong>暗影・代價</span></div>
+            <div class="affinity caelum"><img src="https://assets.echoesofastra.com/icons/icon_affinity_caelum.png" alt="Caelum 圖示" loading="lazy"><span><strong>Caelum</strong>天空・調度</span></div>
+            <div class="affinity terra"><img src="https://assets.echoesofastra.com/icons/icon_affinity_terra.png" alt="Terra 圖示" loading="lazy"><span><strong>Terra</strong>自然・成長</span></div>
+            <div class="affinity solara"><img src="https://assets.echoesofastra.com/icons/icon_affinity_solara.png" alt="Solara 圖示" loading="lazy"><span><strong>Solara</strong>烈焰・攻勢</span></div>
+            <div class="affinity neutral"><img src="https://assets.echoesofastra.com/icons/icon_affinity_neutral.png" alt="Neutral 圖示" loading="lazy"><span><strong>Neutral</strong>不計入兩色限制</span></div>
+          </div>
+          <div class="deck-example"><span>合法範例</span><strong>Caelum + Nox + Neutral</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reference-section" id="reference" aria-labelledby="reference-title">
+      <div class="page-shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">05 / 規則速查</p>
+            <h2 id="reference-title">開局、區域與容易漏掉的規則</h2>
+          </div>
+          <p>以下整理自官方 Comprehensive Ruleset。遇到卡牌特例或版本更新時，仍以官方英文規則為準。</p>
+        </div>
+
+        <div class="reference-grid reveal">
+          <div class="rule-accordions">
+            <details open>
+              <summary><span>01</span>開局設置<i data-lucide="chevron-down" aria-hidden="true"></i></summary>
+              <ol>
+                <li>將 3 個共享戰區排成一直線。</li>
+                <li>隨機決定選擇先手或後手的玩家。</li>
+                <li>各抽 6 張；可將全部起手洗回並重抽 6 張，整局限一次。</li>
+                <li>各把 1 張手牌蓋放為起始供應，再抽 1 張替代。</li>
+                <li>先手開始，並跳過自己的第一個抽牌步驟。</li>
+              </ol>
+            </details>
+
+            <details>
+              <summary><span>02</span>場上區域<i data-lucide="chevron-down" aria-hidden="true"></i></summary>
+              <ul>
+                <li><strong>戰場：</strong>預備區加上三個戰區。</li>
+                <li><strong>戰區：</strong>雙方共享；戰鬥結束後每區只能留下 1 個駐守單位，交戰時會短暫同時有進攻者與防守者。</li>
+                <li><strong>非戰場區：</strong>牌庫、手牌、供應區、墓地與放逐區。</li>
+                <li><strong>資訊：</strong>戰區／預備區／墓地公開；手牌與供應僅持有者可看；牌庫為隱藏。</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary><span>03</span>反制堆疊<i data-lucide="chevron-down" aria-hidden="true"></i></summary>
+              <ul>
+                <li>有守軍時，由防守方決定是否先打出反制。</li>
+                <li>反制包含 Counter 戰術、翻開蓋伏領土、Swift 單位，以及可支付代價的啟動能力。</li>
+                <li>每次新回應疊在最上方，最後加入者最先結算。</li>
+                <li>目標若在結算時失效，該目標部分不產生效果，其餘堆疊仍繼續結算。</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary><span>04</span>傷害與離場<i data-lucide="chevron-down" aria-hidden="true"></i></summary>
+              <ul>
+                <li>戰鬥傷害同時造成；生命降至 0 的單位被摧毀。</li>
+                <li>未死亡單位保留本回合傷害，到自己結束階段才重置。</li>
+                <li>卡牌離開戰場或進入私人區域時，移除獲得的能力與計數物並恢復原狀。</li>
+                <li>衍生物離開戰場後不再存在。</li>
+              </ul>
+            </details>
+
+            <details>
+              <summary><span>05</span>牌庫耗盡<i data-lucide="chevron-down" aria-hidden="true"></i></summary>
+              <p>若你在抽牌階段因牌庫沒有卡而無法抽牌，對手獲得 <strong>3 VP</strong>。這不是立即敗北，勝負仍以先達 20 VP 判定。</p>
+            </details>
+          </div>
+
+          <aside class="glossary" aria-labelledby="glossary-title">
+            <div class="glossary-head">
+              <div><p class="eyebrow">GLOSSARY</p><h3 id="glossary-title">核心術語</h3></div>
+              <label class="search-field">
+                <span class="sr-only">搜尋核心術語</span>
+                <i data-lucide="search" aria-hidden="true"></i>
+                <input type="search" placeholder="搜尋術語…" autocomplete="off" data-glossary-search>
+              </label>
+            </div>
+            <div class="glossary-list" data-glossary-list>
+              <article data-search="ready 就緒 重置"><strong>Ready / 就緒</strong><p>直向狀態；能執行一般單位行動或支付橫置代價。</p></article>
+              <article data-search="exhausted exhaust 橫置 疲憊"><strong>Exhausted / 橫置</strong><p>橫向狀態；單位通常無法進攻、撤退或以戰鬥傷害還擊。</p></article>
+              <article data-search="influence inf 影響力 分數"><strong>Influence / 影響力</strong><p>回合結束時，駐守戰區單位為你提供的 VP 數值。</p></article>
+              <article data-search="staging area 預備區"><strong>Staging Area / 預備區</strong><p>單位與裝備入場的公開區域，也是單位進攻的起點。</p></article>
+              <article data-search="counter stack 反制 堆疊 回應"><strong>Counter Stack / 反制堆疊</strong><p>戰鬥中雙方加入回應的序列，採後進先出結算。</p></article>
+              <article data-search="battlefield 戰場"><strong>Battlefield / 戰場</strong><p>預備區與三個戰區的總稱，不包含手牌、供應或墓地。</p></article>
+              <article data-search="floating supply 浮動供應 資源"><strong>Floating Supply / 浮動供應</strong><p>橫置供應後產生的暫存資源；每位玩家回合結束時歸零。</p></article>
+              <article data-search="renowned 聞名 唯一 同名"><strong>Renowned / 聞名</strong><p>具獨特名稱的卡；同名卡不能同時由同一玩家控制。</p></article>
+              <p class="no-results" data-no-results hidden>找不到相符術語。</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="source-band" aria-labelledby="source-title">
+      <div class="page-shell source-layout">
+        <div>
+          <p class="eyebrow">READY TO PLAY?</p>
+          <h2 id="source-title">帶著速查表，開始第一局。</h2>
+          <p>先用官方 Print &amp; Play 的兩副入門牌組對戰；想確認卡牌原文時，再開啟官方卡牌索引。</p>
+        </div>
+        <div class="source-links">
+          <a class="button button-primary" href="https://echoesofastra.com/print-and-play" target="_blank" rel="noopener noreferrer"><i data-lucide="printer" aria-hidden="true"></i>官方試印牌組</a>
+          <a class="button button-outline" href="https://app.echoesofastra.com/cards-viewer" target="_blank" rel="noopener noreferrer"><i data-lucide="gallery-vertical-end" aria-hidden="true"></i>官方卡牌索引</a>
+          <a class="button button-outline" href="https://rules.echoesofastra.com/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>官方完整規則</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-layout">
+      <div class="footer-brand"><span>SBT</span><strong>ASTRA</strong><small>/sbt-astra/</small></div>
+      <p>非官方繁體中文學習指南，依 2026-07-26 可取得的官方 Comprehensive Ruleset 整理。遊戲名稱、卡圖及相關素材之權利屬 Parhelion Studio Co.；本頁不隸屬或代表官方。</p>
+      <a href="#top" class="back-top" aria-label="回到頁首" title="回到頁首"><i data-lucide="arrow-up" aria-hidden="true"></i></a>
+    </div>
+  </footer>
+
+  <dialog class="quick-dialog" id="quick-dialog" aria-labelledby="quick-title">
+    <div class="dialog-head">
+      <div><p class="eyebrow">SBT / ONE PAGE</p><h2 id="quick-title">一頁規則速查</h2></div>
+      <button class="icon-button" type="button" aria-label="關閉速查表" title="關閉" data-close-dialog><i data-lucide="x" aria-hidden="true"></i></button>
+    </div>
+    <div class="quick-grid">
+      <section><span>勝利</span><h3>先達 20 VP</h3><p>結束階段按駐守單位的影響力計分；無法於抽牌階段抽牌時，對手 +3 VP。</p></section>
+      <section><span>開局</span><h3>起手 6、供應 1</h3><p>一次全手重抽機會；各蓋 1 張為供應並補抽。先手首回合不抽牌。</p></section>
+      <section><span>主階段</span><h3>自由排序行動</h3><p>擴充供應、出牌、啟動能力、進攻與撤退；每次進攻先完整結算戰鬥。</p></section>
+      <section><span>戰鬥</span><h3>能力 → 反制 → 確認 → 傷害 → 結算</h3><p>傷害同時造成；反制後進先出。雙方存活時，進攻者回到原處。</p></section>
+      <section><span>結束</span><h3>計分 → 效果 → 清傷 → 手牌</h3><p>手牌超過 10 張則棄到 10；最後確認是否已達 20 VP。</p></section>
+      <section><span>組牌</span><h3>50+ / 同名 3 / 陣營 2</h3><p>中立牌不計入陣營上限。</p></section>
+    </div>
+    <div class="dialog-source"><i data-lucide="info" aria-hidden="true"></i><span>教學摘要不能涵蓋所有卡牌特例；爭議請查閱官方英文完整規則。</span></div>
+  </dialog>
+
+  <dialog class="card-dialog" id="card-dialog" aria-labelledby="card-dialog-title">
+    <button class="icon-button card-dialog-close" type="button" aria-label="關閉卡圖" title="關閉" data-close-card><i data-lucide="x" aria-hidden="true"></i></button>
+    <img alt="" id="card-dialog-image">
+    <p id="card-dialog-title"></p>
+  </dialog>
+
+  <dialog class="victory-dialog" id="victory-dialog" aria-labelledby="victory-title">
+    <i data-lucide="trophy" aria-hidden="true"></i>
+    <p class="eyebrow">20 VP REACHED</p>
+    <h2 id="victory-title">戰線已確立</h2>
+    <p id="victory-message">我方率先達到 20 VP，贏得本局。</p>
+    <button class="button button-primary" type="button" data-close-victory>繼續查看計分器</button>
+  </dialog>
+</body>
+</html>
